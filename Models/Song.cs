@@ -1,4 +1,6 @@
-namespace Stupify;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Stupify.Models;
 
 public class Song
 {
@@ -6,7 +8,10 @@ public class Song
 
     public string Name { get; set; }
 
-    public string Artist { get; set; }
+    [ForeignKey("Artist")]
+    public int ArtistId { get; set; }
+    
+    public Artist Artist { get; set; }
     
     public string Address { get; set; }
 }

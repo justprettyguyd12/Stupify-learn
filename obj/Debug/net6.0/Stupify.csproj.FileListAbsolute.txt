@@ -45,3 +45,11 @@ C:\Users\Величайший\RiderProjects\Stupify\obj\Debug\net6.0\Stupify.dll
 C:\Users\Величайший\RiderProjects\Stupify\obj\Debug\net6.0\ref\Stupify.dll
 C:\Users\Величайший\RiderProjects\Stupify\obj\Debug\net6.0\Stupify.pdb
 C:\Users\Величайший\RiderProjects\Stupify\obj\Debug\net6.0\Stupify.genruntimeconfig.cache
+C:\Users\Величайший\RiderProjects\Stupify\bin\Debug\net6.0\Stupify.xml
+C:\Users\Величайший\RiderProjects\Stupify\obj\Debug\net6.0\Stupify.xml
+C:\Users\Величайший\RiderProjects\Stupify\obj\Debug\net6.0\Stupify.RazorAssemblyInfo.cache
+C:\Users\Величайший\RiderProjects\Stupify\obj\Debug\net6.0\Stupify.RazorAssemblyInfo.cs
+C:\Users\Величайший\RiderProjects\Stupify\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\Величайший\RiderProjects\Stupify\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\Величайший\RiderProjects\Stupify\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\Величайший\RiderProjects\Stupify\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll

@@ -1,5 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 using Stupify.Services;
+using Stupify.Models;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Stupify;
 
@@ -14,9 +17,16 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddControllers();
+        services.AddControllersWithViews()
+            .AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         services.AddEndpointsApiExplorer();
-        services.AddSwaggerGen();
+        services.AddSwaggerGen(c =>
+        {
+            var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+            c.IncludeXmlComments(xmlPath);
+        });
         services.AddDbContext<ApplicationContext>(options => 
             options.UseNpgsql("Host=localhost;Port=5432;Database=music;Username=postgres;Password=123"));
         services.AddTransient<SongService>();
@@ -28,6 +38,7 @@ public class Startup
         {
             app.UseSwagger();
             app.UseSwaggerUI();
+            app.UseDeveloperExceptionPage();
         }
 
         app.UseHttpsRedirection();
@@ -36,6 +47,6 @@ public class Startup
 
         app.UseAuthorization();
 
-        app.UseEndpoints(endpoints => endpoints.MapDefaultControllerRoute());
+        app.UseEndpoints(endpoints => endpoints.MapControllers());
     }
 }
