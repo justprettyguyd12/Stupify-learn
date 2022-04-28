@@ -1,16 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Stupify;
+namespace Stupify.Models;
 
 public class ApplicationContext : DbContext
 {
     public DbSet<Song> Songs { get; set; }
-
-    public ApplicationContext()
-    {
-        
-    }
-
+    
+    public DbSet<Artist> Artists { get; set; }
+    
     public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
     {
         

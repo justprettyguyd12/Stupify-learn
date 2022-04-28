@@ -3,54 +3,53 @@ using Stupify.Models;
 
 namespace Stupify.Services;
 
-public class SongService
+public class ArtistService
 {
     private readonly ApplicationContext _context;
 
-    public SongService(ApplicationContext context)
+    public ArtistService(ApplicationContext context)
     {
         _context = context;
     }
 
-    public List<Song> GetList()
+    public List<Artist> GetList()
     {
-        return _context.Songs
-            .Include(s => s.Artist)
-            .ToList();
+        return _context.Artists.Include(a => a.Songs).ToList();
     }
 
-    public Song Get(int id)
-        => _context.Songs
-            .Include(s => s!.Artist)
-            .FirstOrDefault(s => s.Id == id)!;
+    public Artist Get(int id)
+    {
+        return _context.Artists.Include(a => a!.Songs)
+            .FirstOrDefault(a => a.Id == id)!;
+    }
 
-    public void Create(Song newSong)
+    public void Create(Artist newArtist)
     {
         using var transaction = _context.Database.BeginTransaction();
 
         try
         {
-            _context.Songs.Add(newSong);
+            _context.Artists.Add(newArtist);
             _context.SaveChanges();
             transaction.Commit();
         }
-        catch (Exception e)
+        catch (Exception)
         {
             transaction.Rollback();
         }
     }
 
-    public void Update(Song updatedSong)
+    public void Update(Artist updatedArtist)
     {
         using var transaction = _context.Database.BeginTransaction();
 
         try
         {
-            _context.Entry(updatedSong).State = EntityState.Modified;
+            _context.Entry(updatedArtist).State = EntityState.Modified;        
             _context.SaveChanges();
             transaction.Commit();
         }
-        catch (Exception e)
+        catch (Exception)
         {
             transaction.Rollback();
         }
@@ -58,17 +57,16 @@ public class SongService
 
     public void Delete(int id)
     {
-        var songToDelete = _context.Songs
-            .FirstOrDefault(s => s!.Id == id);
+        var artistToDelete = _context.Artists.FirstOrDefault(a => a.Id == id);
         
         using var transaction = _context.Database.BeginTransaction();
         try
         {
-            _context.Songs.Remove(songToDelete);
+            _context.Artists.Remove(artistToDelete);       
             _context.SaveChanges();
             transaction.Commit();
         }
-        catch (Exception e)
+        catch (Exception)
         {
             transaction.Rollback();
         }

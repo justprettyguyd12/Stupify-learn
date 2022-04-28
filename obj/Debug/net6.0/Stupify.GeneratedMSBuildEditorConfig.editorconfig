@@ -14,3 +14,15 @@ build_property.SupportLocalizedComponentNames =
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
 build_property.MSBuildProjectDirectory = C:\Users\Величайший\RiderProjects\Stupify
 build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/Величайший/RiderProjects/Stupify/Views/Artists/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aXN0c1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Величайший/RiderProjects/Stupify/Views/Artists/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aXN0c1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Величайший/RiderProjects/Stupify/Views/Music/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTXVzaWNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 

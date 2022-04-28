@@ -1,0 +1,34 @@
+﻿@using Stupify.Models;
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+    <title>@ViewBag.Artist.Name</title>
+</head>
+<body>
+<div>@ViewBag.Artist.Description</div>
+<br/>
+<table>
+    @foreach (Song song in ViewBag.Songs)
+    {
+        <tr>
+            <td>
+                <a href="/Artist/@song.ArtistId">@song.Artist.Name</a>
+            </td>
+            <td>@song.Name</td>
+            <td>
+                <audio controls="" name="media">
+                    <source src="@song.Address" type="audio/mpeg">
+                </audio>
+            </td>
+        </tr>
+    }
+
+</table>
+</body>
+</html>

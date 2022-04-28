@@ -1,0 +1,28 @@
+﻿@using Stupify.Models;
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+    <title>Все артисты</title>
+</head>
+<body>
+<table>
+    <tr>
+        <td>Исполнитель</td>
+    </tr>
+    @foreach (Artist artist in ViewBag.Artists)
+    {
+        <tr>
+            <td>
+                <a href="Artists/@artist.Id">@artist.Name</a>
+            </td>
+        </tr>
+    }
+</table>
+</body>
+</html>
