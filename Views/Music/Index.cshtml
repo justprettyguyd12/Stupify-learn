@@ -1,6 +1,5 @@
 ﻿@using Stupify.Models;
 
-
 <!DOCTYPE html>
 
 <html lang="ru">
@@ -19,7 +18,9 @@
     @foreach (Song song in ViewBag.Songs)
     {
         <tr>
-            <td>@song.Artist.Name</td>
+            <td>
+                <a href="Artists/@song.Artist.Id">@song.Artist.Name</a>
+            </td>
             <td>@song.Name</td>
             <td>
                 <audio controls="" name="media">

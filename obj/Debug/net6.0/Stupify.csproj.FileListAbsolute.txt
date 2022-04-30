@@ -53,3 +53,4 @@ C:\Users\Величайший\RiderProjects\Stupify\bin\Debug\net6.0\Microsoft.A
 C:\Users\Величайший\RiderProjects\Stupify\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\Величайший\RiderProjects\Stupify\bin\Debug\net6.0\Newtonsoft.Json.dll
 C:\Users\Величайший\RiderProjects\Stupify\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+C:\Users\Величайший\RiderProjects\Stupify\bin\Debug\net6.0\Stupify.staticwebassets.runtime.json

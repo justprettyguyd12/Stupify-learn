@@ -1,9 +1,5 @@
 ﻿@using Stupify.Models;
 
-@{
-    Layout = null;
-}
-
 <!DOCTYPE html>
 
 <html lang="ru">
@@ -14,13 +10,15 @@
 <table>
     <tr>
         <td>Исполнитель</td>
+        <td>Песен</td>
     </tr>
     @foreach (Artist artist in ViewBag.Artists)
     {
         <tr>
             <td>
-                <a href="Artists/@artist.Id">@artist.Name</a>
+                <a href="/Artists/@artist.Id">@artist.Name</a>
             </td>
+            <td>@artist.Songs.Count</td>
         </tr>
     }
 </table>
