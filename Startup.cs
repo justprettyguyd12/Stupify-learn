@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Stupify.Services;
 using Stupify.Models;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Stupify;
 
@@ -17,6 +17,11 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(options =>
+            {
+                options.LoginPath = new PathString("/Account/Login");
+            });
         services.AddControllersWithViews()
             .AddNewtonsoftJson(options =>
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
@@ -31,6 +36,7 @@ public class Startup
             options.UseNpgsql("Host=localhost;Port=5432;Database=music;Username=postgres;Password=123"));
         services.AddTransient<SongService>();
         services.AddTransient<ArtistService>();
+        services.AddTransient<UserService>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -44,11 +50,11 @@ public class Startup
 
         app.UseHttpsRedirection();
 
+        app.UseStaticFiles();
         app.UseRouting();
 
+        app.UseAuthentication();
         app.UseAuthorization();
-
-        app.UseStaticFiles();
 
         app.UseEndpoints(endpoints => endpoints.MapControllers());
     }

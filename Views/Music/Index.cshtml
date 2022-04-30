@@ -9,26 +9,35 @@
 
 <h1>Песни</h1>
 
-<table>
-    <tr>
-        <td>Исполнитель</td>
-        <td>Песня</td>
-        <td></td>
-    </tr>
-    @foreach (Song song in ViewBag.Songs)
+@{
+    if (ViewBag.Songs.Count > 0)
     {
-        <tr>
-            <td>
-                <a href="Artists/@song.Artist.Id">@song.Artist.Name</a>
-            </td>
-            <td>@song.Name</td>
-            <td>
-                <audio controls="" name="media">
-                    <source src="@song.Address" type="audio/mpeg"/>
-                </audio>
-            </td>
-        </tr>
+        <table>
+            <tr>
+                <td>Исполнитель</td>
+                <td>Песня</td>
+                <td></td>
+            </tr>
+            @foreach (Song song in ViewBag.Songs)
+            {
+                <tr>
+                    <td>
+                        <a href="Artists/@song.Artist.Id">@song.Artist.Name</a>
+                    </td>
+                    <td>@song.Name</td>
+                    <td>
+                        <audio controls="" name="media">
+                            <source src="@song.Address" type="audio/mpeg"/>
+                        </audio>
+                    </td>
+                </tr>
+            }
+        </table>
     }
-</table>
+    else
+    {
+        <p>Здесь пока нет песен&#129335;</p>
+    }
+}
 
 </html>

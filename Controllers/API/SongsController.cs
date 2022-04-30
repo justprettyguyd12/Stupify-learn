@@ -2,26 +2,26 @@ using Microsoft.AspNetCore.Mvc;
 using Stupify.Models;
 using Stupify.Services;
 
-namespace Stupify.Controllers;
+namespace Stupify.Controllers.API;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class SongsController : ControllerBase
 {
-    private readonly SongService songService;
+    private readonly SongService _songService;
 
     public SongsController(SongService songService)
     {
-        this.songService = songService;
+        this._songService = songService;
     }
     
     /// <summary>
-    /// Получить полный писок песен
+    /// Получить полный список песен
     /// </summary>
     [HttpGet]
-    public IEnumerable<Song?> Get()
+    public IEnumerable<Song> Get()
     {
-        return songService.GetList();
+        return _songService.GetList();
     }
 
     /// <summary>
@@ -32,7 +32,7 @@ public class SongsController : ControllerBase
     [HttpGet("{id:int}")]
     public Song Get(int id)
     {
-        return songService.Get(id);
+        return _songService.Get(id);
     }
 
     /// <summary>
@@ -44,7 +44,7 @@ public class SongsController : ControllerBase
     public ActionResult<Song> Post(Song song)
     {
         song.Id = 0;
-        songService.Create(song);
+        _songService.Create(song);
         return Ok(song);
     }
 
@@ -56,7 +56,7 @@ public class SongsController : ControllerBase
     [HttpPut]
     public ActionResult Put(Song song)
     {
-        songService.Update(song);
+        _songService.Update(song);
         return Ok(song);
     }
 
@@ -68,7 +68,7 @@ public class SongsController : ControllerBase
     [HttpDelete("{id:int}")]
     public ActionResult Delete(int id)
     {
-        songService.Delete(id);
+        _songService.Delete(id);
         return Ok("Песня успешно удалена");
     }
 }

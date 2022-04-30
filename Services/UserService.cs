@@ -3,31 +3,27 @@ using Stupify.Models;
 
 namespace Stupify.Services;
 
-public class SongService
+public class UserService
 {
     private readonly ApplicationContext _context;
 
-    public SongService(ApplicationContext context)
+    public UserService(ApplicationContext context)
     {
         _context = context;
     }
 
-    public List<Song> GetList() =>
-        _context.Songs
-            .Include(s => s.Artist)
-            .ToList();
+    public IEnumerable<User> GetList() => _context.Users.ToList();
 
-    public Song Get(int id) => _context.Songs
-            .Include(s => s!.Artist)
-            .FirstOrDefault(s => s.Id == id)!;
-
-    public void Create(Song newSong)
+    public User Get(int id) => _context.Users
+        .FirstOrDefault(u => u.Id == id)!;
+    
+    public void Create(User newUser)
     {
         using var transaction = _context.Database.BeginTransaction();
 
         try
         {
-            _context.Songs.Add(newSong);
+            _context.Users.Add(newUser);
             _context.SaveChanges();
             transaction.Commit();
         }
@@ -37,13 +33,12 @@ public class SongService
         }
     }
 
-    public void Update(Song updatedSong)
+    public void Update(User updatedUser)
     {
         using var transaction = _context.Database.BeginTransaction();
-
         try
         {
-            _context.Entry(updatedSong).State = EntityState.Modified;
+            _context.Entry(updatedUser).State = EntityState.Modified;
             _context.SaveChanges();
             transaction.Commit();
         }
@@ -55,13 +50,13 @@ public class SongService
 
     public void Delete(int id)
     {
-        var songToDelete = _context.Songs
-            .FirstOrDefault(s => s!.Id == id);
-        
+        var userToDelete = _context.Users
+            .FirstOrDefault(x => x.Id == id);
+
         using var transaction = _context.Database.BeginTransaction();
         try
         {
-            _context.Songs.Remove(songToDelete);
+            _context.Users.Remove(userToDelete);
             _context.SaveChanges();
             transaction.Commit();
         }
