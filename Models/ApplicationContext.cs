@@ -10,6 +10,13 @@ public class ApplicationContext : DbContext
     
     public DbSet<User> Users { get; set; }
     
+    public DbSet<UserLike> UserLikes { get; set; }
+
+    public ApplicationContext()
+    {
+        
+    }
+    
     public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
     {
         

@@ -26,12 +26,12 @@ public class MusicController : Controller
     [HttpGet("My")]
     public ActionResult My()
     {
-        var user = _userService.GetList().FirstOrDefault(u => u.Login == User.Identity?.Name);
+        var user = _userService.GetList().FirstOrDefault(u => u.Login == User.Identity.Name);
         if (user == null)
             return Redirect("/Account/Login");
         var likedSongs = user.Likes.Select(l => l.SongId).ToList();
             
-        var songs = _userService.GetList().Where(s => likedSongs.Contains(s.Id)).ToList();
+        var songs = _songService.GetList().Where(s => likedSongs.Contains(s.Id)).ToList();
         ViewBag.LikedSongs = likedSongs;
         ViewBag.Songs = songs;
         return View("Index");

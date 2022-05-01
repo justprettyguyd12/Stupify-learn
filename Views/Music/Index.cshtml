@@ -13,11 +13,6 @@
     if (ViewBag.Songs.Count > 0)
     {
         <table>
-            <tr>
-                <td>Исполнитель</td>
-                <td>Песня</td>
-                <td></td>
-            </tr>
             @foreach (Song song in ViewBag.Songs)
             {
                 <tr>
@@ -30,6 +25,17 @@
                             <source src="@song.Address" type="audio/mpeg"/>
                         </audio>
                     </td>
+                    <td>
+                        @if (ViewBag.LikedSongs != null &&
+                             ViewBag.LikedSongs.Contains(song.Id))
+                        {
+                            <img id="like_@song.Id" src="/pics/heart2.png" height="20" onclick="likeSong(@song.Id)" alt="liked"/>
+                        }
+                        else
+                        {
+                            <img id="like_@song.Id" src="/pics/heart.png" height="20" onclick="likeSong(@song.Id)" alt="unliked"/>
+                        }
+                    </td>
                 </tr>
             }
         </table>
@@ -39,5 +45,32 @@
         <p>Здесь пока нет песен&#129335;</p>
     }
 }
+
+<script>
+    function likeSong(id) {
+        let request = new XMLHttpRequest();
+        let isLike = (document.getElementById("like_" + id).src.includes("/pics/heart.png"));
+        if (isLike) {
+            request.open("post", "/UserLikes/Like/" + id, true);
+            request.onload = function () {
+                if (request.status!==200) {
+                    alert("Для сохранения песни авторизуйтесь");
+                } else {
+                    document.getElementById("like_" + id).src = "/pics/heart2.png";
+                }
+            }.bind(this);
+        } else {
+            request.open("post", "/UserLikes/Dislike/" + id, true);
+            request.onload = function () {
+                if (request.status !== 200) {
+                    alert("Для сохранения песни авторизуйтесь");
+                } else {
+                    document.getElementById("like_" + id).src = "/pics/heart.png";
+                }
+            }.bind(this);
+        }
+        request.send();
+    }
+</script>
 
 </html>

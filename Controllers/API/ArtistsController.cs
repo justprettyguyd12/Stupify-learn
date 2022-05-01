@@ -19,10 +19,7 @@ public class ArtistsController : ControllerBase
     /// Получить список артистов
     /// </summary>
     [HttpGet]
-    public IEnumerable<Artist> Get()
-    {
-        return _artistService.GetList();
-    }
+    public IEnumerable<Artist> Get() => _artistService.GetList();
 
     /// <summary>
     /// Получить песню по id
@@ -30,10 +27,7 @@ public class ArtistsController : ControllerBase
     /// <param name="id">Идентификатор песни</param>
     /// <returns></returns>
     [HttpGet("{id:int}")]
-    public Artist Get(int id)
-    {
-        return _artistService.Get(id);
-    }
+    public Artist Get(int id) => _artistService.Get(id);
 
     /// <summary>
     /// Создание артиста

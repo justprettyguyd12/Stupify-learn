@@ -11,9 +11,4 @@ public class User
     public string Role { get; set; }
     
     public List<UserLike> Likes { get; set; }
-
-    public User()
-    {
-        Likes = new List<UserLike>();
-    }
 }

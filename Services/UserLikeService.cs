@@ -3,28 +3,34 @@ using Stupify.Models;
 
 namespace Stupify.Services;
 
-public class UserService
+public class UserLikeService
 {
     private readonly ApplicationContext _context;
 
-    public UserService(ApplicationContext context)
+    public UserLikeService(ApplicationContext context)
     {
-        _context = context;
+        this._context = context;
     }
 
-    public List<User> GetList() => _context.Users.Include(u => u.Likes).ToList();
+    public List<UserLike> GetList()
+    {
+        return _context.UserLikes.Include(u => u.Song).ToList();
+    }
 
-    public User Get(int id) => _context.Users
-        .Include(u => u.Likes)
-        .FirstOrDefault(u => u.Id == id)!;
-    
-    public void Create(User newUser)
+    public UserLike Get(int id)
+    {
+        return _context.UserLikes
+            .Include(u => u.Song)
+            .FirstOrDefault(u => u.Id == id)!;
+    }
+
+    public void Create(UserLike newUserLike)
     {
         using var transaction = _context.Database.BeginTransaction();
 
         try
         {
-            _context.Users.Add(newUser);
+            _context.UserLikes.Add(newUserLike);
             _context.SaveChanges();
             transaction.Commit();
         }
@@ -34,12 +40,12 @@ public class UserService
         }
     }
 
-    public void Update(User updatedUser)
+    public void Update(UserLike updatedUserLike)
     {
         using var transaction = _context.Database.BeginTransaction();
         try
         {
-            _context.Entry(updatedUser).State = EntityState.Modified;
+            _context.Entry(updatedUserLike).State = EntityState.Modified;
             _context.SaveChanges();
             transaction.Commit();
         }
@@ -51,13 +57,13 @@ public class UserService
 
     public void Delete(int id)
     {
-        var userToDelete = _context.Users
+        var userLikeToDelete = _context.UserLikes
             .FirstOrDefault(x => x.Id == id);
 
         using var transaction = _context.Database.BeginTransaction();
         try
         {
-            _context.Users.Remove(userToDelete);
+            _context.UserLikes.Remove(userLikeToDelete);
             _context.SaveChanges();
             transaction.Commit();
         }

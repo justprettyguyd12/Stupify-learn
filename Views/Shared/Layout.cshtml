@@ -25,7 +25,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Artists" asp-action="Index">Все музыканты</a>
                         </li>
                         @{
-                            if (User.Identity.IsAuthenticated)
+                            if (User.Identity!.IsAuthenticated)
                                 {
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="" asp-controller="Music" asp-action="My">Мои песни</a>

@@ -34,9 +34,11 @@ public class Startup
         });
         services.AddDbContext<ApplicationContext>(options => 
             options.UseNpgsql("Host=localhost;Port=5432;Database=music;Username=postgres;Password=123"));
+        
         services.AddTransient<SongService>();
         services.AddTransient<ArtistService>();
         services.AddTransient<UserService>();
+        services.AddTransient<UserLikeService>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

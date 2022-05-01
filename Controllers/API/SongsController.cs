@@ -12,17 +12,14 @@ public class SongsController : ControllerBase
 
     public SongsController(SongService songService)
     {
-        this._songService = songService;
+        _songService = songService;
     }
     
     /// <summary>
     /// Получить полный список песен
     /// </summary>
     [HttpGet]
-    public IEnumerable<Song> Get()
-    {
-        return _songService.GetList();
-    }
+    public IEnumerable<Song> Get() => _songService.GetList();
 
     /// <summary>
     /// Получить песню по id
@@ -30,10 +27,7 @@ public class SongsController : ControllerBase
     /// <param name="id">Идентификатор песни</param>
     /// <returns></returns>
     [HttpGet("{id:int}")]
-    public Song Get(int id)
-    {
-        return _songService.Get(id);
-    }
+    public Song Get(int id) => _songService.Get(id);
 
     /// <summary>
     /// Создание песни

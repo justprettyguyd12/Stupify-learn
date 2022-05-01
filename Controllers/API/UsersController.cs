@@ -6,11 +6,11 @@ namespace Stupify.Controllers.API;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AccountController : ControllerBase
+public class UsersController : ControllerBase
 {
     private readonly UserService _userService;
 
-    public AccountController(UserService userService)
+    public UsersController(UserService userService)
     {
         _userService = userService;
     }

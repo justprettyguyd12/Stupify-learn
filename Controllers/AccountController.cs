@@ -56,16 +56,15 @@ public class AccountController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Login(LoginModel model)
     {
-        if (ModelState.IsValid)
+        if (!ModelState.IsValid) 
+            return View(model);
+        var user = _userService.GetList().FirstOrDefault(x => x.Login == model.Login && x.Password == EncryptPassword(model.Password));
+        if (user != null)
         {
-            var user = _userService.GetList().FirstOrDefault(x => x.Login == model.Login && x.Password == EncryptPassword(model.Password));
-            if (user != null)
-            {
-                await Authenticate(user);
-                return RedirectToAction("Index", "Music");
-            }
-            ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+            await Authenticate(user);
+            return RedirectToAction("Index", "Music");
         }
+        ModelState.AddModelError("", "Некорректные логин и(или) пароль");
         return View(model);
     }
     
@@ -73,7 +72,7 @@ public class AccountController : Controller
     public async Task<IActionResult> Logout()
     {
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        return RedirectToAction("Login", "Account");
+        return RedirectToAction("Login");
     }
     
     [HttpGet("Register")]
@@ -85,18 +84,20 @@ public class AccountController : Controller
     [HttpPost("Register")]
     public async Task<IActionResult> Register(RegisterModel model)
     {
-        if (ModelState.IsValid)
-        {                
-            if (_userService.GetList().FirstOrDefault(x => x.Login == model.Login) == null)
-            {
-                var user = new User { Login = model.Login, Password = EncryptPassword(model.Password), Role = "Пользователь" };
-                _userService.Create(user);
+        if (!ModelState.IsValid) 
+            return View(model);
+        if (_userService.GetList().FirstOrDefault(x => x.Login == model.Login) == null)
+        {
+            var user = new User { Login = model.Login, 
+                Password = EncryptPassword(model.Password), 
+                Role = "Пользователь", 
+                Likes = new List<UserLike>()};
+            _userService.Create(user);
 
-                await Authenticate(user);
-                return RedirectToAction("Index", "Music");
-            }
-            ModelState.AddModelError("", "Пользователь с таким логином уже существует");
+            await Authenticate(user);
+            return RedirectToAction("Index", "Music");
         }
+        ModelState.AddModelError("", "Пользователь с таким логином уже существует");
         return View(model);
     }
 }
